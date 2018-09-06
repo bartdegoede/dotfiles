@@ -232,7 +232,7 @@ popd > /dev/null 2>&1
 
 bot "Installing vim plugins"
 # cmake is required to compile vim bundle YouCompleteMe
-# require_brew cmake
+require_brew cmake
 vim +PluginInstall +qall > /dev/null 2>&1
 
 bot "installing fonts"
@@ -307,7 +307,6 @@ sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
 
 # Enable firewall stealth mode (no response to ICMP / ping requests)
 # Source: https://support.apple.com/kb/PH18642
-#sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
 sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
 
 # Enable firewall logging
@@ -328,7 +327,7 @@ sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
 #launchctl load /System/Library/LaunchAgents/com.apple.alf.useragent.plist
 
 # Disable IR remote control
-#sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -bool false
+sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -bool false
 
 # Turn Bluetooth off completely
 #sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0
@@ -374,10 +373,10 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -boo
 #sudo defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool true
 
 # Disable the crash reporter
-#defaults write com.apple.CrashReporter DialogType -string "none"
+defaults write com.apple.CrashReporter DialogType -string "none"
 
 # Disable diagnostic reports
-#sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
 
 # Log authentication events for 90 days
 #sudo perl -p -i -e 's/rotate=seq file_max=5M all_max=20M/rotate=utc file_max=5M ttl=90/g' "/etc/asl/com.apple.authd"
@@ -421,10 +420,11 @@ sudo chflags uchg /Private/var/vm/sleepimage;ok
 ################################################
 
 # running "Set computer name (as done via System Preferences → Sharing)"
-# sudo scutil --set ComputerName "antic"
-# sudo scutil --set HostName "antic"
-# sudo scutil --set LocalHostName "antic"
-# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "antic"
+read -r -p "What do you want your computer name to be? " computername
+sudo scutil --set ComputerName "$computername"
+sudo scutil --set HostName "$computername"
+sudo scutil --set LocalHostName "$computername"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$computername"
 
 # running "Disable smooth scrolling"
 # (Uncomment if you’re on an older Mac that messes up the animation)
@@ -444,13 +444,13 @@ sudo chflags uchg /Private/var/vm/sleepimage;ok
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null;ok
 
 # running "Show icons for hard drives, servers, and removable media on the desktop"
-# defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-# defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 # defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
-# defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true;ok
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true;ok
 
 # running "Enable the MacBook Air SuperDrive on any Mac"
-# sudo nvram boot-args="mbasd=1";ok
+sudo nvram boot-args="mbasd=1";ok
 
 # running "Remove Dropbox’s green checkmark icons in Finder"
 # file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
@@ -491,19 +491,19 @@ sudo nvram SystemAudioVolume=" ";ok
 running "Menu bar: disable transparency"
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool false;ok
 
-running "Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons"
-for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
-  defaults write "${domain}" dontAutoLoad -array \
-    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-    "/System/Library/CoreServices/Menu Extras/Volume.menu" \
-    "/System/Library/CoreServices/Menu Extras/User.menu"
-done;
-defaults write com.apple.systemuiserver menuExtras -array \
-  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-  "/System/Library/CoreServices/Menu Extras/Clock.menu"
-ok
+# running "Menu bar: hide the Time Machine, Volume, User, and Bluetooth icons"
+# for domain in ~/Library/Preferences/ByHost/com.apple.systemuiserver.*; do
+#   defaults write "${domain}" dontAutoLoad -array \
+#     "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+#     "/System/Library/CoreServices/Menu Extras/Volume.menu" \
+#     "/System/Library/CoreServices/Menu Extras/User.menu"
+# done;
+# defaults write com.apple.systemuiserver menuExtras -array \
+#   "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+#   "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+#   "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+#   "/System/Library/CoreServices/Menu Extras/Clock.menu"
+# ok
 
 running "Set highlight color to green"
 defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600";ok
@@ -577,19 +577,19 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false;ok
 bot "Trackpad, mouse, keyboard, Bluetooth accessories, and input"
 ###############################################################################
 
-running "Trackpad: enable tap to click for this user and for the login screen"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1;ok
+# running "Trackpad: enable tap to click for this user and for the login screen"
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+# defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1;ok
 
-running "Trackpad: map bottom right corner to right-click"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true;ok
+# running "Trackpad: map bottom right corner to right-click"
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
+# defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true;ok
 
-running "Disable 'natural' (Lion-style) scrolling"
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false;ok
+# running "Disable 'natural' (Lion-style) scrolling"
+# defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false;ok
 
 running "Increase sound quality for Bluetooth headphones/headsets"
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40;ok
@@ -796,15 +796,15 @@ bot "Configuring Hot Corners"
 # 11: Launchpad
 # 12: Notification Center
 
-running "Top left screen corner → Mission Control"
-defaults write com.apple.dock wvous-tl-corner -int 2
-defaults write com.apple.dock wvous-tl-modifier -int 0;ok
-running "Top right screen corner → Desktop"
-defaults write com.apple.dock wvous-tr-corner -int 4
-defaults write com.apple.dock wvous-tr-modifier -int 0;ok
-running "Bottom right screen corner → Start screen saver"
-defaults write com.apple.dock wvous-br-corner -int 5
-defaults write com.apple.dock wvous-br-modifier -int 0;ok
+# running "Top left screen corner → Mission Control"
+# defaults write com.apple.dock wvous-tl-corner -int 2
+# defaults write com.apple.dock wvous-tl-modifier -int 0;ok
+# running "Top right screen corner → Desktop"
+# defaults write com.apple.dock wvous-tr-corner -int 4
+# defaults write com.apple.dock wvous-tr-modifier -int 0;ok
+# running "Bottom right screen corner → Start screen saver"
+# defaults write com.apple.dock wvous-br-corner -int 5
+# defaults write com.apple.dock wvous-br-modifier -int 0;ok
 
 ###############################################################################
 bot "Configuring Safari & WebKit"
@@ -848,7 +848,6 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true;ok
 ###############################################################################
 bot "Configuring Mail"
 ###############################################################################
-
 
 running "Disable send and reply animations in Mail.app"
 defaults write com.apple.mail DisableReplyAnimations -bool true
@@ -1017,8 +1016,8 @@ defaults write com.apple.appstore ShowDebugMenu -bool true;ok
 bot "Messages"
 ###############################################################################
 
-running "Disable automatic emoji substitution (i.e. use plain text smileys)"
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false;ok
+# running "Disable automatic emoji substitution (i.e. use plain text smileys)"
+# defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false;ok
 
 running "Disable smart quotes as it’s annoying for messages that contain code"
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false;ok
