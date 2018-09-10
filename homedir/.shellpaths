@@ -6,6 +6,14 @@ export PATH=$PATH:.
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
+# Python
+export PATH=$HOME/Library/Python/3.7/bin:$PATH
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/projects
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+source /usr/local/bin/virtualenvwrapper.sh
+
 # GO
 #export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
