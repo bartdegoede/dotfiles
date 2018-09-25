@@ -193,6 +193,9 @@ RUBY_CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-
 require_brew ruby
 # install python
 require_brew python
+# install go
+require_brew go
+require brew hugo
 # set zsh as the user login shell
 CURRENTSHELL=$(dscl . -read /Users/$USER UserShell | awk '{print $2}')
 if [[ "$CURRENTSHELL" != "/usr/local/bin/zsh" ]]; then
@@ -846,6 +849,13 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 
 running "Add a context menu item for showing the Web Inspector in web views"
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true;ok
+
+###############################################################################
+bot "Configuring Chrome"
+###############################################################################
+running "Disabling Chrome Sync and automatic sign-in"
+defaults write com.google.Chrome SyncDisabled -bool true
+defaults write com.google.Chrome RestrictSigninToPattern -string ".*@example.com";ok
 
 ###############################################################################
 bot "Configuring Mail"
