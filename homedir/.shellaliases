@@ -100,3 +100,11 @@ alias td="todo.sh"
 alias tda="todo.sh add"
 alias tdl="todo.sh list"
 alias tdd="todo.sh do"
+
+# Scribd
+alias devbox_up="cd ~/Documents/scribd/git/scribd/devbox && vagrant up"
+alias devbox_ssh="ssh -A bart@devbox.lo"
+alias olap="ssh bart@olap-qa01.lo"
+# Scribd - Kibana
+alias kibana-pmp="~/Documents/scribd/kibana-pmp/bin/kibana"
+alias kibana-ugc="~/Documents/scribd/kibana-ugc/bin/kibana"

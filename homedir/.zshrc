@@ -55,3 +55,9 @@ unsetopt correct
 
 # run fortune on new terminal :)
 # fortune
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/bartd/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bartd/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/bartd/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartd/google-cloud-sdk/completion.zsh.inc'; fi

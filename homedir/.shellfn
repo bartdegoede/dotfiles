@@ -121,3 +121,16 @@ function tre(){
 function weather() {
   curl wttr.in/$1
 }
+
+## Use ~/.ssh/known_hosts and ~/.ssh/config for ssh completion
+[ -r ~/.ssh/known_hosts ] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+[ -r ~/.ssh/config ] && _ssh_config=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p')) || _ssh_config=()
+hosts=(
+  "$_ssh_config[@]"
+  "$_global_ssh_hosts[@]"
+  "$_ssh_hosts[@]"
+  "$_etc_hosts[@]"
+  "$HOST"
+  localhost
+)
+zstyle ':completion:*:hosts' hosts $hosts

@@ -196,6 +196,8 @@ require_brew python
 # install go
 require_brew go
 require brew hugo
+# install scala
+require_brew scala
 # set zsh as the user login shell
 CURRENTSHELL=$(dscl . -read /Users/$USER UserShell | awk '{print $2}')
 if [[ "$CURRENTSHELL" != "/usr/local/bin/zsh" ]]; then
