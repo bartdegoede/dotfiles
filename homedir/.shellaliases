@@ -108,3 +108,4 @@ alias olap="ssh bart@olap-qa01.lo"
 # Scribd - Kibana
 alias kibana-pmp="~/Documents/scribd/kibana-pmp/bin/kibana"
 alias kibana-ugc="~/Documents/scribd/kibana-ugc/bin/kibana"
+alias cat="bat"

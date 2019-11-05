@@ -198,6 +198,8 @@ require_brew go
 require brew hugo
 # install scala
 require_brew scala
+# install bat
+require_brew bat
 # set zsh as the user login shell
 CURRENTSHELL=$(dscl . -read /Users/$USER UserShell | awk '{print $2}')
 if [[ "$CURRENTSHELL" != "/usr/local/bin/zsh" ]]; then
