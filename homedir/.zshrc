@@ -61,3 +61,5 @@ if [ -f '/Users/bartd/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bartd/goo
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/bartd/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartd/google-cloud-sdk/completion.zsh.inc'; fi
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
