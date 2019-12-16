@@ -7,12 +7,12 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 
 # Python
-export PATH=$HOME/Library/Python/3.6/bin:$PATH
+export PATH=$HOME/Library/Python/3.8/bin:$PATH
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/projects
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-source /Library/Frameworks/Python.framework/Versions/3.6/bin/virtualenvwrapper.sh
+source /Library/Frameworks/Python.framework/Versions/3.8/bin/virtualenvwrapper.sh
 # source /usr/local/bin/virtualenvwrapper.sh
 
 # GO
