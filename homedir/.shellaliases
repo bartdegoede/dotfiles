@@ -101,11 +101,9 @@ alias tda="todo.sh add"
 alias tdl="todo.sh list"
 alias tdd="todo.sh do"
 
+alias ..="cd .."
+
 # Scribd
-alias devbox_up="cd ~/Documents/scribd/git/scribd/devbox && vagrant up"
-alias devbox_ssh="ssh -A bart@devbox.lo"
-alias olap="ssh bart@olap-qa01.lo"
-# Scribd - Kibana
-alias kibana-pmp="~/Documents/scribd/kibana-pmp/bin/kibana"
-alias kibana-ugc="~/Documents/scribd/kibana-ugc/bin/kibana"
+alias aws_login="saml2aws login --role arn:aws:iam::966195928720:role/okta_sso_super_admin"
+
 alias cat="bat"

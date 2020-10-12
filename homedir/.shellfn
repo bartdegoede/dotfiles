@@ -136,3 +136,7 @@ hosts=(
   localhost
 )
 zstyle ':completion:*:hosts' hosts $hosts
+
+function to_searchdev_s3() {
+  aws s3 cp $1 s3://development-scribd-search-databricks/jars/kitchensink-etl/bart/$1
+}
